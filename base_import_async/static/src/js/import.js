@@ -13,14 +13,18 @@ odoo.define('base_import_async.import', function (require) {
             return options;
         },
 
-        onimported: function () {
+        onimported: function (event, from, to, results) {
             if (this.$('input.oe_import_queue').prop('checked')) {
                 this.do_notify(
                     _t("Your request is being processed"),
                     _t("You can check the status of this job in menu 'Queue / Jobs'.")
                 );
+                this.exit();
+                return;
             }
+            
             this._super.apply(this, arguments);
+            
         },
 
     });
